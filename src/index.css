@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Instrument+Serif:ital@0;1&family=Fira+Code:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design Tokens — Vapor Clinic (Preset D) ─── */
+:root {
+  --void:     #0A0A14;
+  --plasma:   #7B61FF;
+  --ghost:    #F0EFF4;
+  --graphite: #18181B;
+  --surface:  rgba(255,255,255,0.04);
+  --border:   rgba(255,255,255,0.08);
+  --obsidian: #0A0A14;   /* kept for backwards compat */
+  --amber:    #7B61FF;   /* remapped to plasma */
+  --ivory:    #F0EFF4;   /* remapped to ghost */
+  --slate:    #18181B;   /* remapped to graphite */
+}
+
+/* ─── Base ─── */
+@layer base {
+  body {
+    background: var(--void);
+    color: var(--ghost);
+    font-family: 'Sora', sans-serif;
+    @apply antialiased overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, .font-heading {
+    font-family: 'Sora', sans-serif;
+    @apply tracking-tight;
+  }
+
+  .font-drama {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+  }
+
+  .font-sans {
+    font-family: 'Sora', sans-serif;
+  }
+
+  .font-serif {
+    font-family: 'Instrument Serif', serif;
+  }
+
+  .font-mono {
+    font-family: 'Fira Code', monospace;
+  }
+}
+
+/* ─── Global Noise Overlay ─── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--void); }
+::-webkit-scrollbar-thumb { background: rgba(123,97,255,0.3); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--plasma); }
+
+/* ─── Utility classes ─── */
+.rounded-container { @apply rounded-[2rem] md:rounded-[3rem]; }
+
+/* Card surface */
+.card-surface {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  transition: border-color 0.3s ease;
+}
+.card-surface:hover {
+  border-color: rgba(123,97,255,0.3);
+}
+
+/* Section tag label */
+.section-tag {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--plasma);
+}
+
+/* Pulsing status dot */
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00FF96;
+  box-shadow: 0 0 8px #00FF96;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* Blinking cursor */
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Hover lift */
+.hover-lift {
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Magnetic button */
+.btn-magnetic {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.4s ease;
+}
+.btn-magnetic:hover {
+  transform: scale(1.03);
+}
+.btn-magnetic:active {
+  transform: scale(0.98);
+}
+.btn-slide {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.12);
+  transform: translateX(-101%);
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: inherit;
+}
+.btn-magnetic:hover .btn-slide {
+  transform: translateX(0);
+}
+
+/* Liquid animated gradient bg (philosophy section) */
+.liquid-bg {
+  background: radial-gradient(ellipse 80% 60% at 30% 40%, rgba(123,97,255,0.18) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 80% at 70% 70%, rgba(0,255,150,0.08) 0%, transparent 60%);
+  animation: liquid-shift 12s ease-in-out infinite alternate;
+}
+@keyframes liquid-shift {
+  0%   { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.1) rotate(5deg); }
+}
+
+/* Scan line (used in fallback hero) */
+.scan-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(123,97,255,0.6), transparent);
+  animation: scan 4s linear infinite;
+  pointer-events: none;
+}
+@keyframes scan {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Mouse text effect on hero headline */
+.mouse-text-effect {
+  transition: transform 0.15s ease, text-shadow 0.15s ease;
+}
+
+/* EKG waveform keyframe (used in Protocol) */
+@keyframes ekgPulse {
+  0% { stroke-dashoffset: 600; opacity: 0.3; }
+  40% { opacity: 1; }
+  100% { stroke-dashoffset: -600; opacity: 0.3; }
+}
+
+/* Bento grid neon border glow on hover */
+.bento-card {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.bento-card:hover {
+  box-shadow: 0 0 30px rgba(123,97,255,0.2);
+  border-color: rgba(123,97,255,0.4);
+}
+
+/* Glass morphism */
+.glass {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
