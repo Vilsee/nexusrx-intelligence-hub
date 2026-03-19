@@ -127,12 +127,67 @@ function DemoSection() {
     { id: 4, name: 'Synthesis & Report', icon: FileText, color: '#8B5CF6', parseTime: 1000 },
   ];
 
-  const simulatedOutputs = {
-    0: { status: 'complete', data: '{"target_entity": "BRCA2", "disease_context": "ovarian cancer", "compound_class": "PARP inhibitor", "agent_sequence": [1,2,3,4]}' },
-    1: { status: 'complete', data: 'Found 847 papers on PubMed. Top 20 ranked by relevance + recency. Contradiction detected between 2 meta-analyses on combination therapy efficacy (p < 0.05).' },
-    2: { status: 'complete', data: 'Druggability Score: 0.89 | Association Score: 0.94 | Safety Flags: Low hepatotoxicity risk, CYP450 interaction noted. Tissue specificity: high in ovarian epithelium.' },
-    3: { status: 'complete', data: '12 active Phase III trials. 3 completed Phase II (NCT04...). White space identified: post-platinum-resistant subgroup (0 active trials, 4 completed Phase II).' },
-    4: { status: 'complete', data: 'Evidence Strength: STRONG (0.91). Recommended: Proceed with combination PARP + anti-PD-L1 trial in platinum-resistant cohort. Full brief generated with 42 citations.' },
+  const getSimulatedOutputs = (q) => {
+    const queryLower = q.toLowerCase();
+    
+    // Default context
+    let target = "BRCA2";
+    let disease = "ovarian cancer";
+    let drug = "PARP inhibitor";
+    let papers = 847;
+    let druggability = "0.89";
+    let association = "0.94";
+    let safety = "Low hepatotoxicity risk, CYP450 interaction noted.";
+    let trials = "12 active Phase III trials. 3 completed Phase II.";
+    let subspace = "post-platinum-resistant subgroup";
+    let recommendation = "Proceed with combination PARP + anti-PD-L1 trial in platinum-resistant cohort.";
+    let strength = "0.91";
+
+    if (queryLower.includes('kras') || queryLower.includes('lung')) {
+      target = "KRAS G12C";
+      disease = "lung adenocarcinoma";
+      drug = "Sotorasib / Adagrasib";
+      papers = 1240;
+      druggability = "0.92";
+      association = "0.96";
+      safety = "Mild GI toxicity, potential resistance via secondary mutations.";
+      trials = "8 Phase III trials, 15 Phase II trials.";
+      subspace = "untreated brain metastases";
+      recommendation = "Optimize combination with SHP2 inhibitors for CNS-penetrant efficacy.";
+      strength = "0.88";
+    } else if (queryLower.includes('pd-l1') || queryLower.includes('melanoma')) {
+      target = "PD-L1 / PD-1";
+      disease = "melanoma";
+      drug = "Checkpoint Immunotherapy";
+      papers = 3421;
+      druggability = "0.98";
+      association = "0.99";
+      safety = "Immune-related adverse events (irAEs) monitored; high safety profile.";
+      trials = "45 Phase III trials globally.";
+      subspace = "LAG-3 co-expression refractory";
+      recommendation = "Consider triplet therapy with LAG-3 and CTLA-4 inhibitors.";
+      strength = "0.95";
+    } else if (queryLower.includes('metformin') || queryLower.includes('nafld')) {
+      target = "AMPK / Metformin";
+      disease = "NAFLD / Liver Fibrosis";
+      drug = "Antidiabetic / Anti-fibrotic";
+      papers = 560;
+      druggability = "0.85";
+      association = "0.78";
+      safety = "Lactic acidosis risk (rare), long-term safety established.";
+      trials = "4 active Phase II trials for NASH/NAFLD.";
+      subspace = "F3/F4 stage fibrosis cohort";
+      recommendation = "Investigate synergistic effects with SGLT2 inhibitors or GLP-1 RAs.";
+      strength = "0.82";
+    }
+
+    return {
+      0: { status: 'complete', data: JSON.stringify({ target_entity: target, disease_context: disease, command_class: drug, agent_sequence: [1,2,3,4] }) },
+      1: { status: 'complete', data: `Found ${papers} papers on PubMed. Top 20 ranked by relevance + recency. Contradiction detected between 2 meta-analyses on therapy efficacy (p < 0.05).` },
+      2: { status: 'complete', data: `Druggability Score: ${druggability} | Association Score: ${association} | Safety Flags: ${safety} Tissue specificity: high in ${disease.split(' ').pop()}.` },
+      3: { status: 'complete', data: `${trials} White space identified: ${subspace} (low active trial density detected).` },
+      4: { status: 'complete', data: `Evidence Strength: STRONG (${strength}). Recommended: ${recommendation} Full brief generated with citations.` },
+    };
   };
 
   const runDemo = async (selectedQuery) => {
@@ -145,10 +200,12 @@ function DemoSection() {
     setShowReport(false);
     setDemoComplete(false);
 
+    const outputs = getSimulatedOutputs(q);
+
     for (let i = 0; i < agentDefs.length; i++) {
       setCurrentAgent(i);
       await new Promise(r => setTimeout(r, agentDefs[i].parseTime));
-      setAgentOutputs(prev => ({ ...prev, [i]: simulatedOutputs[i] }));
+      setAgentOutputs(prev => ({ ...prev, [i]: outputs[i] }));
     }
 
     await new Promise(r => setTimeout(r, 500));
@@ -300,12 +357,17 @@ function DemoSection() {
                   <div className="mt-8 pt-8 border-t border-white/5">
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-sm font-medium text-white/60 font-display uppercase tracking-widest">Evidence Strength</span>
-                      <span className="font-mono text-sm font-bold text-bio-green">STRONG — 91%</span>
+                      <span className="font-mono text-sm font-bold text-bio-green">
+                        STRONG — {agentOutputs[4] ? agentOutputs[4].data.match(/\((0\.\d+)\)/)[1] : '91'}%
+                      </span>
                     </div>
                     <div className="h-2.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.05)' }}>
                       <div
                         className="h-full rounded-full transition-all duration-1000"
-                        style={{ width: '91%', background: 'linear-gradient(90deg, #2563EB, #10B981)' }}
+                        style={{ 
+                          width: `${(agentOutputs[4] ? parseFloat(agentOutputs[4].data.match(/\((0\.\d+)\)/)[1]) : 0.91) * 100}%`, 
+                          background: 'linear-gradient(90deg, #2563EB, #10B981)' 
+                        }}
                       />
                     </div>
                     <div className="mt-6 p-6 rounded-2xl" style={{ background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.15)' }}>
@@ -314,8 +376,7 @@ function DemoSection() {
                         <span className="text-sm font-bold text-bio-green font-display uppercase tracking-wider">Research Brief Generated</span>
                       </div>
                       <p className="text-sm text-white/50 leading-relaxed font-sans mt-2">
-                        Structured research brief with executive summary, evidence strength rating (Strong), trial white space analysis
-                        (platinum-resistant cohort identified), 42 citations from 847 papers, and recommended next steps for combination PARP + anti-PD-L1 trial design.
+                        {agentOutputs[4] ? agentOutputs[4].data.split('Recommended: ')[1] : 'Structured research brief finalized.'}
                       </p>
                     </div>
                   </div>
