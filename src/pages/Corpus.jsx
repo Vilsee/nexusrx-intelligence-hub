@@ -52,6 +52,19 @@ export default function Corpus() {
                 ))}
             </div>
 
+            <div className="flex flex-wrap items-center gap-3 mt-12 mb-12">
+                {['ALL_VECTORS', 'PII_SECURITY', 'DOSAGE_STRESS', 'CLINICAL_BYPASS'].map((filter) => (
+                    <button
+                        key={filter}
+                        className={`px-4 py-2 rounded-lg font-mono text-[9px] uppercase tracking-widest border transition-all
+                            ${filter === 'ALL_VECTORS' ? 'bg-red-500 text-white border-red-500 shadow-[0_0_15px_rgba(255,0,0,0.2)]' : 'border-white/5 text-white/30 hover:border-white/20'}
+                        `}
+                    >
+                        {filter}
+                    </button>
+                ))}
+            </div>
+
             <div className="mt-20 p-10 border border-white/5 bg-white/[0.01] rounded-[2rem] flex flex-col md:flex-row items-center justify-between gap-8">
                 <div className="flex items-center gap-6">
                     <div className="w-16 h-16 rounded-2xl bg-plasma/10 flex items-center justify-center text-plasma border border-plasma/20">

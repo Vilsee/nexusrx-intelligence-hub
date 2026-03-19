@@ -1,21 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Instrument+Serif:ital@0;1&family=Fira+Code:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Design Tokens — Vapor Clinic (Preset D) ─── */
+/* ─── Design Tokens — NexusRx ─── */
 :root {
-  --void:     #0A0A14;
-  --plasma:   #7B61FF;
-  --ghost:    #F0EFF4;
-  --graphite: #18181B;
-  --surface:  rgba(255,255,255,0.04);
-  --border:   rgba(255,255,255,0.08);
-  --obsidian: #0A0A14;   /* kept for backwards compat */
-  --amber:    #7B61FF;   /* remapped to plasma */
-  --ivory:    #F0EFF4;   /* remapped to ghost */
-  --slate:    #18181B;   /* remapped to graphite */
+  --void:       #0A1628;
+  --deep-navy:  #0F172A;
+  --plasma:     #2563EB; /* Electric Blue */
+  --bio-green:  #10B981;
+  --ghost:      #F8FAFC;
+  --graphite:   #1E293B;
+  --onyx:       #0D0D12;
+  --surface:    rgba(255,255,255,0.04);
+  --border:     rgba(255,255,255,0.08);
+  --glass-bg:   rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(255,255,255,0.1);
+}
+
+/* Cal Sans — loaded via local font-face (display/heading font) */
+@font-face {
+  font-family: 'Cal Sans';
+  src: url('https://cdn.jsdelivr.net/gh/calcom/font@main/fonts/cal-sans/CalSans-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* ─── Base ─── */
@@ -23,30 +33,25 @@
   body {
     background: var(--void);
     color: var(--ghost);
-    font-family: 'Sora', sans-serif;
+    font-family: 'Inter', sans-serif;
     @apply antialiased overflow-x-hidden;
   }
 
   h1, h2, h3, h4, .font-heading {
-    font-family: 'Sora', sans-serif;
+    font-family: 'Cal Sans', 'Inter', sans-serif;
     @apply tracking-tight;
   }
 
-  .font-drama {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
+  .font-display {
+    font-family: 'Cal Sans', 'Inter', sans-serif;
   }
 
   .font-sans {
-    font-family: 'Sora', sans-serif;
-  }
-
-  .font-serif {
-    font-family: 'Instrument Serif', serif;
+    font-family: 'Inter', sans-serif;
   }
 
   .font-mono {
-    font-family: 'Fira Code', monospace;
+    font-family: 'JetBrains Mono', monospace;
   }
 }
 
@@ -59,18 +64,17 @@ body::before {
   height: 100%;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* ─── Scrollbar ─── */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--void); }
-::-webkit-scrollbar-thumb { background: rgba(123,97,255,0.3); border-radius: 10px; }
+::-webkit-scrollbar-thumb { background: rgba(37,99,235,0.4); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--plasma); }
 
 /* ─── Utility classes ─── */
-.rounded-container { @apply rounded-[2rem] md:rounded-[3rem]; }
 
 /* Card surface */
 .card-surface {
@@ -80,12 +84,118 @@ body::before {
   transition: border-color 0.3s ease;
 }
 .card-surface:hover {
-  border-color: rgba(123,97,255,0.3);
+  border-color: rgba(37,99,235,0.3);
+}
+
+/* Glassmorphism card — enhanced */
+.glass-card {
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border-radius: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.glass-card:hover::before {
+  left: 100%;
+}
+
+.glass-card:hover {
+  border-color: rgba(37, 99, 235, 0.5);
+  box-shadow: 0 0 40px rgba(37, 99, 235, 0.15);
+  transform: translateY(-5px);
+}
+
+/* Shiny border effect */
+.shiny-border {
+  position: relative;
+  border-radius: 1.5rem;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.3),
+    rgba(16, 185, 129, 0.3),
+    rgba(37, 99, 235, 0.1)
+  );
+}
+
+.shiny-border-content {
+  background: var(--void);
+  border-radius: calc(1.5rem - 1px);
+}
+
+/* Mesh Gradient / Aurora Effect */
+.aurora-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  filter: blur(100px);
+  opacity: 0.2;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.aurora-1 {
+  top: -20%;
+  left: -10%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle, #2563EB 0%, transparent 70%);
+}
+
+.aurora-2 {
+  bottom: -10%;
+  right: -5%;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(circle, #10B981 0%, transparent 70%);
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Text Shimmer */
+@keyframes text-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.text-shimmer {
+  background: linear-gradient(90deg, #F8FAFC 0%, #3B82F6 40%, #F8FAFC 60%, #10B981 80%, #F8FAFC 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer 4s linear infinite;
 }
 
 /* Section tag label */
 .section-tag {
-  font-family: 'Fira Code', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 0.65rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -98,8 +208,8 @@ body::before {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #00FF96;
-  box-shadow: 0 0 8px #00FF96;
+  background: var(--bio-green);
+  box-shadow: 0 0 8px var(--bio-green);
   animation: pulse-dot 2s ease-in-out infinite;
 }
 @keyframes pulse-dot {
@@ -149,10 +259,40 @@ body::before {
   transform: translateX(0);
 }
 
-/* Liquid animated gradient bg (philosophy section) */
+/* Agent pipeline connection line animation */
+@keyframes pulse-line {
+  0% { opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+.pipeline-line {
+  animation: pulse-line 2s ease-in-out infinite;
+}
+
+/* Agent node pulse */
+@keyframes agent-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.4); }
+  50% { box-shadow: 0 0 20px 4px rgba(37,99,235,0.2); }
+}
+.agent-node-active {
+  animation: agent-pulse 2.5s ease-in-out infinite;
+}
+
+/* Flowing data animation */
+@keyframes flow-data {
+  0% { transform: translateX(-100%); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+.flow-dot {
+  animation: flow-data 3s linear infinite;
+}
+
+/* Liquid animated gradient bg */
 .liquid-bg {
-  background: radial-gradient(ellipse 80% 60% at 30% 40%, rgba(123,97,255,0.18) 0%, transparent 60%),
-              radial-gradient(ellipse 60% 80% at 70% 70%, rgba(0,255,150,0.08) 0%, transparent 60%);
+  background: radial-gradient(ellipse 80% 60% at 30% 40%, rgba(37,99,235,0.15) 0%, transparent 60%),
+              radial-gradient(ellipse 60% 80% at 70% 70%, rgba(16,185,129,0.08) 0%, transparent 60%);
   animation: liquid-shift 12s ease-in-out infinite alternate;
 }
 @keyframes liquid-shift {
@@ -160,13 +300,13 @@ body::before {
   100% { transform: scale(1.1) rotate(5deg); }
 }
 
-/* Scan line (used in fallback hero) */
+/* Scan line */
 .scan-line {
   position: absolute;
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(123,97,255,0.6), transparent);
+  background: linear-gradient(90deg, transparent, rgba(37,99,235,0.6), transparent);
   animation: scan 4s linear infinite;
   pointer-events: none;
 }
@@ -177,25 +317,18 @@ body::before {
   100% { top: 100%; opacity: 0; }
 }
 
-/* Mouse text effect on hero headline */
+/* Mouse text effect */
 .mouse-text-effect {
   transition: transform 0.15s ease, text-shadow 0.15s ease;
 }
 
-/* EKG waveform keyframe (used in Protocol) */
-@keyframes ekgPulse {
-  0% { stroke-dashoffset: 600; opacity: 0.3; }
-  40% { opacity: 1; }
-  100% { stroke-dashoffset: -600; opacity: 0.3; }
-}
-
-/* Bento grid neon border glow on hover */
+/* Bento card glow */
 .bento-card {
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 .bento-card:hover {
-  box-shadow: 0 0 30px rgba(123,97,255,0.2);
-  border-color: rgba(123,97,255,0.4);
+  box-shadow: 0 0 30px rgba(37,99,235,0.2);
+  border-color: rgba(37,99,235,0.4);
 }
 
 /* Glass morphism */
@@ -203,4 +336,32 @@ body::before {
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Social proof strip */
+.social-proof-strip {
+  background: #111827;
+}
+
+/* Shimmer button effect */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.btn-shimmer {
+  background: linear-gradient(110deg, #2563EB 0%, #3B82F6 25%, #60A5FA 50%, #3B82F6 75%, #2563EB 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Typing animation for demo */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+.typing-effect {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--plasma);
+  animation: typing 3s steps(40) 1s forwards, blink 0.7s step-end infinite;
 }

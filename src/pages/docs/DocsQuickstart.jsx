@@ -13,7 +13,7 @@ const CodeBlock = ({ code }) => {
     <div className="relative group mt-4 mb-8">
       <div className="absolute top-3 right-3 z-10">
         <button onClick={copy} className="p-1.5 rounded bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition-all border border-white/5">
-          {copied ? <Check size={14} className="text-plasma" /> : <Copy size={14} />}
+          {copied ? <Check size={14} className="text-red-500" /> : <Copy size={14} />}
         </button>
       </div>
       <div className="font-mono text-xs p-5 pt-10 rounded-xl bg-void border border-white/5 text-white/80 overflow-x-auto leading-relaxed shadow-lg">
@@ -40,7 +40,7 @@ export default function DocsQuickstart() {
 
       <section className="mb-16">
         <div className="flex items-center gap-3 mb-6">
-            <span className="w-6 h-6 rounded flex items-center justify-center bg-plasma/10 text-plasma font-mono text-[10px] font-bold">01</span>
+            <span className="w-6 h-6 rounded flex items-center justify-center bg-red-500/10 text-red-500 font-mono text-[10px] font-bold">01</span>
             <h2 className="text-lg font-mono font-bold tracking-widest text-white uppercase">Installation</h2>
         </div>
         <p className="text-sm text-white/40 mb-4 leading-relaxed">

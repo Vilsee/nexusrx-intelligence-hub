@@ -15,6 +15,9 @@ import DocsCIIntegration from './pages/docs/DocsCIIntegration';
 import NewScan from './pages/dashboard/NewScan';
 import DashboardHome from './pages/dashboard/DashboardHome';
 import Settings from './pages/dashboard/Settings';
+import CelestialDemo from './pages/CelestialDemo';
+import OdysseyDemo from './pages/OdysseyDemo';
+import AnoAIDemo from './pages/AnoAIDemo';
 import { ScanProvider } from './context/ScanContext';
 
 class ErrorBoundary extends React.Component {
@@ -45,20 +48,14 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-const SharedLayout = ({ children }) => {
-  return (
-    <div className="min-h-screen bg-[#0D0D12] text-[#FAF8F5] font-sans selection:bg-[#F59E0B] selection:text-[#0D0D12]">
-      {children}
-    </div>
-  );
-};
+import MidnightLuxeLayout from './components/MidnightLuxeLayout';
 
 function App() {
   return (
     <ErrorBoundary>
       <Router>
         <ScanProvider>
-          <SharedLayout>
+          <MidnightLuxeLayout>
             <Routes>
               <Route path="/" element={<Landing />} />
               
@@ -67,6 +64,9 @@ function App() {
               <Route path="/corpus" element={<Corpus />} />
               <Route path="/playground" element={<Playground />} />
               <Route path="/demo" element={<Demo />} />
+              <Route path="/celestial" element={<CelestialDemo />} />
+              <Route path="/odyssey" element={<OdysseyDemo />} />
+              <Route path="/ano-ai" element={<AnoAIDemo />} />
 
               {/* Documentation Hub */}
               <Route path="/docs" element={<DocsLayout />}>
@@ -86,7 +86,7 @@ function App() {
                 <Route path="settings" element={<Settings />} />
               </Route>
             </Routes>
-          </SharedLayout>
+          </MidnightLuxeLayout>
         </ScanProvider>
       </Router>
     </ErrorBoundary>

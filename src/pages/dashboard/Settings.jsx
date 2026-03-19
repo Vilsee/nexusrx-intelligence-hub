@@ -41,6 +41,15 @@ export default function Settings() {
                     <div className="card-surface p-0 flex flex-col overflow-hidden">
                         <SettingItem icon={Bell} title="Audit Notifications" desc="Email + Webhook Push Alerts" />
                         <SettingItem icon={CreditCard} title="Billing & Credits" desc="Usage Plan: Research_Enterprise" action="Upgrade" />
+                        <div className="p-6 border-b border-white/5 last:border-0 flex items-center justify-between group hover:bg-white/[0.01] transition-all">
+                            <div>
+                                <h3 className="font-mono text-xs font-bold text-white uppercase tracking-widest mb-1">AUTOMATED_VULNERABILITY_FIXING</h3>
+                                <p className="text-[11px] text-white/30 uppercase font-mono tracking-tighter">SDK will attempt to patch clinical prompt vulnerabilities</p>
+                            </div>
+                            <div className="w-12 h-6 rounded-full bg-red-500 relative shadow-[0_0_10px_rgba(255,0,0,0.3)]">
+                                <div className="absolute right-1 top-1 w-4 h-4 rounded-full bg-white shadow-sm" />
+                            </div>
+                        </div>
                     </div>
                 </section>
 

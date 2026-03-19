@@ -124,8 +124,8 @@ export default function Report() {
                                     <Radar
                                         name="Safety %"
                                         dataKey="value"
-                                        stroke="#9f65f3"
-                                        fill="#9f65f3"
+                                        stroke="#ff0000"
+                                        fill="#ff0000"
                                         fillOpacity={0.2}
                                     />
                                 </RadarChart>
@@ -149,11 +149,11 @@ export default function Report() {
                                 ]}>
                                     <XAxis dataKey="step" axisLine={false} tickLine={false} tick={{ fill: 'rgba(255,255,255,0.2)', fontSize: 10, fontFamily: 'monospace' }} />
                                     <Bar dataKey="val" radius={[4, 4, 0, 0]}>
-                                        <Cell fill="#9f65f3" />
+                                        <Cell fill="#ff0000" />
                                         <Cell fill="#ef4444" />
-                                        <Cell fill="#9f65f3" />
-                                        <Cell fill="#9f65f3" />
-                                        <Cell fill="#9f65f3" />
+                                        <Cell fill="#ff0000" />
+                                        <Cell fill="#ff0000" />
+                                        <Cell fill="#ff0000" />
                                     </Bar>
                                 </BarChart>
                             </ResponsiveContainer>

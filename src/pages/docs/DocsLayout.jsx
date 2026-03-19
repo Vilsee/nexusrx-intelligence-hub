@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { Menu, X, ChevronRight, Book, Terminal, Shield, Zap, Info, ArrowLeft, ArrowUpRight } from 'lucide-react';
+import HeroOdyssey from '@/components/ui/HeroOdyssey';
 
 const SidebarItem = ({ to, icon: Icon, label }) => (
   <NavLink
@@ -8,7 +9,7 @@ const SidebarItem = ({ to, icon: Icon, label }) => (
     className={({ isActive }) => `
       flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all
       ${isActive 
-        ? 'bg-plasma/10 text-plasma border border-plasma/20' 
+        ? 'bg-plasma/10 text-plasma border border-plasma/20 shadow-[0_0_15px_rgba(255,0,0,0.1)]' 
         : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}
     `}
   >
@@ -79,8 +80,23 @@ export default function DocsLayout() {
         </aside>
 
         {/* Content */}
-        <main className="flex-1 p-8 md:p-12 max-w-4xl">
-          <Outlet />
+        <main className="flex-1 overflow-y-auto">
+          {/* Hero Section */}
+          <div className="h-[400px] w-full relative overflow-hidden">
+            <div className="absolute inset-0 z-0">
+               <HeroOdyssey />
+            </div>
+            <div className="absolute inset-0 bg-void/60 backdrop-blur-[2px] z-10" />
+            <div className="relative z-20 h-full flex flex-col items-center justify-center text-center p-8">
+               <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-plasma mb-4">Documentation</span>
+               <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-2">Build with NexusRx</h1>
+               <p className="text-white/40 max-w-lg text-sm">Comprehensive guides and API references for building automated drug discovery pipelines.</p>
+            </div>
+          </div>
+
+          <div className="p-8 md:p-12 max-w-4xl mx-auto">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>

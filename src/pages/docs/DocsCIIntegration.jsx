@@ -42,11 +42,17 @@ jobs:
               <Gitlab className="text-[#FC6D26]" size={20} />
               <h2 className="text-lg font-mono font-bold tracking-widest text-white uppercase">GitLab CI</h2>
           </div>
-          <p className="text-sm text-white/40 mb-6 leading-relaxed">
-              Add the `medrteam` stage to your `.gitlab-ci.yml` to trigger automated audits on Every Merge Request.
-          </p>
-          <div className="p-6 rounded-xl border border-white/5 bg-white/[0.01] font-mono text-[11px] text-white/40 italic">
-              // Documentation for GitLab Runners is currently in BETA.
+          <div className="card-surface p-10 bg-[#000000] border border-red-500/20 shadow-[0_0_40px_rgba(255,0,0,0.05)]">
+              <pre className="text-red-500 font-mono text-sm mb-4"># .github/workflows/medred.yml</pre>
+              <pre className="text-white/60 font-mono text-sm leading-relaxed">
+{`jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run MedRed Scan
+        run: mrt scan --target llama-3-med --vis-threshold 0.15`}
+              </pre>
           </div>
       </section>
 

@@ -4,7 +4,7 @@ import { Book, ChevronRight } from 'lucide-react';
 const Endpoint = ({ method, path, desc }) => (
     <div className="py-6 border-b border-white/5 flex flex-col md:flex-row md:items-center gap-4 group">
         <div className="flex items-center gap-3 min-w-[200px]">
-            <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-widest ${method === 'POST' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : 'bg-green-500/10 text-green-400 border border-green-500/20'}`}>
+            <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-widest ${method === 'POST' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : method === 'GET' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : 'bg-green-500/10 text-green-400 border border-green-500/20'}`}>
                 {method}
             </span>
             <span className="font-mono text-xs text-white/80 group-hover:text-white transition-colors">{path}</span>

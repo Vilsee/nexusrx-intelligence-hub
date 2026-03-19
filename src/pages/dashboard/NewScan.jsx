@@ -165,7 +165,7 @@ export default function NewScan() {
                     <button 
                         onClick={handleLaunch}
                         disabled={loading}
-                        className="btn-magnetic px-12 py-4 font-mono text-[11px] uppercase tracking-widest rounded-full bg-plasma text-white font-black shadow-[0_0_40px_rgba(159,101,243,0.4)] flex items-center gap-3 hover:scale-105 transition-all"
+                        className="btn-magnetic px-12 py-4 font-mono text-[11px] uppercase tracking-widest rounded-full bg-plasma text-white font-black shadow-[0_0_40px_rgba(255,0,0,0.4)] flex items-center gap-3 hover:scale-105 transition-all"
                     >
                         {loading ? <Loader2 size={18} className="animate-spin" /> : <Play size={18} />}
                         {loading ? 'INITIALIZING_AUDIT...' : 'START ADVERSARIAL AUDIT'}

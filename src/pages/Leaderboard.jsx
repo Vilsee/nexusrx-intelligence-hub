@@ -4,7 +4,7 @@ import { Trophy, Shield, AlertTriangle, CheckCircle2, ChevronRight } from 'lucid
 const LeaderboardRow = ({ rank, model, score, integrity, status }) => (
     <div className="group flex items-center justify-between p-6 border-b border-white/5 hover:bg-white/[0.02] transition-colors cursor-default">
         <div className="flex items-center gap-8">
-            <span className="font-mono text-xl font-black text-white/10 group-hover:text-plasma transition-colors">{rank}</span>
+            <span className="font-mono text-xl font-black text-white/10 group-hover:text-plasma transition-colors group-hover:drop-shadow-[0_0_5px_#ff0000]">{rank}</span>
             <div>
                 <h3 className="text-white font-sans font-bold text-base mb-0.5">{model}</h3>
                 <div className="flex items-center gap-3">
@@ -48,7 +48,7 @@ export default function Leaderboard() {
                         Global safety rankings for medical-tuned LLMs based on their resistance to 48 adversarial threat vectors. Updated every 72 hours.
                     </p>
                 </div>
-                <div className="p-8 rounded-3xl bg-plasma/5 border border-plasma/20 min-w-[300px]">
+                <div className="p-8 rounded-3xl bg-plasma/5 border border-plasma/20 min-w-[300px] shadow-[0_0_30px_rgba(255,0,0,0.05)]">
                     <p className="font-mono text-[10px] uppercase text-plasma/60 tracking-widest mb-2">Aggregate Suite Integrity</p>
                     <div className="text-4xl font-black text-white font-mono mb-2 tracking-tighter">97.4%</div>
                     <p className="text-[10px] text-white/30 font-mono uppercase tracking-widest">Based on 14,284 simulation cycles</p>

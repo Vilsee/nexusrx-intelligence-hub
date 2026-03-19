@@ -30,7 +30,7 @@ print(results.summary())`);
                     <button className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-white/10 text-white/40 hover:text-white transition-all font-mono text-[10px] uppercase font-bold">
                         <Save size={14} /> Save Script
                     </button>
-                    <button className="flex items-center gap-2 px-8 py-3 rounded-full bg-plasma text-white font-mono text-[10px] uppercase font-black tracking-widest shadow-xl hover:scale-105 transition-all">
+                    <button className="flex items-center gap-2 px-8 py-3 rounded-full bg-plasma text-white font-mono text-[10px] uppercase font-black tracking-widest shadow-[0_0_20px_rgba(255,0,0,0.4)] hover:scale-105 transition-all">
                         <Play size={16} /> Execute Audit
                     </button>
                 </div>

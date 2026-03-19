@@ -1,0 +1,121 @@
+﻿[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32mΓ£ô[39m 24 modules transformed.
+node.exe : 
+[31mΓ£ù[39m Build 
+failed in 1.18s
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: ([31mΓ£ù[39m   
+  Build failed in 1    
+.18s:String) [], R    
+emoteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+[31merror during 
+build:
+[31m[vite:esbuild] 
+Transform failed with 
+1 error:
+C:/Users/VILSEESHANDILY
+A/OneDrive/Desktop/Spli
+ne Skill/landing/src/pa
+ges/docs/DocsAPIReferen
+ce.jsx:8:30: ERROR: 
+Expected ";" but found 
+"px"[31m
+file: [36mC:/Users/VIL
+SEESHANDILYA/OneDrive/D
+esktop/Spline Skill/lan
+ding/src/pages/docs/Doc
+sAPIReference.jsx:8:30
+[31m
+[33m
+[33mExpected ";" but 
+found "px"[33m
+6  |      <div 
+className="py-6 
+border-b 
+border-white/5 flex 
+flex-col md:flex-row 
+md:items-center gap-4 
+group">
+7  |          <div 
+className="flex 
+items-center gap-3 
+min-w-[200px]">
+8  |              
+<span className={`px-2 
+py-0.5 rounded 
+text-[10px] font-mono 
+font-bold uppercase 
+tracking-widest 
+${method ...
+   |                   
+             ^
+9  |                  
+{method}
+10 |              
+</span>
+[31m
+    at 
+failureErrorWithLog (C:
+\Users\VILSEESHANDILYA\
+OneDrive\Desktop\Spline
+ Skill\landing\node_mod
+ules\esbuild\lib\main.j
+s:1467:15)
+    at C:\Users\VILSEES
+HANDILYA\OneDrive\Deskt
+op\Spline Skill\landing
+\node_modules\esbuild\l
+ib\main.js:736:50
+    at responseCallback
+s.<computed> (C:\Users\
+VILSEESHANDILYA\OneDriv
+e\Desktop\Spline Skill\
+landing\node_modules\es
+build\lib\main.js:603:9
+)
+    at 
+handleIncomingPacket (C
+:\Users\VILSEESHANDILYA
+\OneDrive\Desktop\Splin
+e Skill\landing\node_mo
+dules\esbuild\lib\main.
+js:658:12)
+    at 
+Socket.readFromStdout (
+C:\Users\VILSEESHANDILY
+A\OneDrive\Desktop\Spli
+ne Skill\landing\node_m
+odules\esbuild\lib\main
+.js:581:7)
+    at Socket.emit 
+(node:events:519:28)
+    at addChunk (node:i
+nternal/streams/readabl
+e:561:12)
+    at readableAddChunk
+PushByteMode (node:inte
+rnal/streams/readable:5
+12:3)
+    at Readable.push (n
+ode:internal/streams/re
+adable:392:5)
+    at 
+Pipe.onStreamRead (node
+:internal/stream_base_c
+ommons:189:23)[39m

@@ -7,17 +7,19 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Sora', 'sans-serif'],
-        serif: ['Instrument Serif', 'serif'],
-        mono: ['Fira Code', 'monospace'],
-        heading: ['Sora', 'sans-serif'],
-        drama: ['Instrument Serif', 'serif'],
+        display: ['"Cal Sans"', 'Inter', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
+        heading: ['"Cal Sans"', 'Inter', 'sans-serif'],
       },
       colors: {
-        void: '#0A0A14',
-        plasma: '#7B61FF',
-        ghost: '#F0EFF4',
-        graphite: '#18181B',
+        void: '#0A1628',
+        'deep-navy': '#0F172A',
+        ghost: '#F8FAFC',
+        plasma: '#2563EB',
+        'bio-green': '#10B981',
+        graphite: '#1E293B',
+        onyx: '#0D0D12',
       },
     },
   },

@@ -76,7 +76,7 @@ export default function DocsAttackCategories() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                   <div>
                       <p className="text-[10px] font-mono text-white/30 uppercase tracking-widest mb-1">Pass Threshold</p>
-                      <p className="text-lg font-mono font-bold text-green-500 tracking-tighter">{"<"} 0.15 VIS</p>
+                      <p className="text-lg font-mono font-bold text-red-500 tracking-tighter">{"<"} 0.15 VIS</p>
                   </div>
                   <div>
                       <p className="text-[10px] font-mono text-white/30 uppercase tracking-widest mb-1">Failure Threshold</p>

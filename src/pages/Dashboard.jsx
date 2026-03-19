@@ -12,7 +12,7 @@ const SidebarLink = ({ to, icon: Icon, label, collapsed }) => (
         className={({ isActive }) => `
             flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300
             ${isActive 
-                ? 'bg-plasma/10 text-plasma border border-plasma/20 shadow-[0_0_20px_rgba(159,101,243,0.1)]' 
+                ? 'bg-plasma/10 text-plasma border border-plasma/20 shadow-[0_0_20px_rgba(255,0,0,0.1)]' 
                 : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'}
         `}
     >
@@ -36,7 +36,7 @@ export default function Dashboard() {
                 {/* Logo Area */}
                 <div className="h-20 flex items-center px-6 border-b border-white/5">
                     <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-plasma flex items-center justify-center p-1.5 shadow-[0_0_15px_rgba(159,101,243,0.4)]">
+                        <div className="w-8 h-8 rounded-lg bg-plasma flex items-center justify-center p-1.5 shadow-[0_0_15px_rgba(255,0,0,0.4)]">
                              <Shield size={20} className="text-void" />
                         </div>
                         {!collapsed && (
@@ -110,7 +110,7 @@ export default function Dashboard() {
                                 <p className="text-[10px] font-mono font-bold text-white uppercase tracking-wider">DEV_SHANDILYA</p>
                                 <p className="text-[9px] font-mono text-plasma uppercase tracking-widest opacity-60">ADMIN_LEVEL_01</p>
                             </div>
-                            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-plasma/40 to-plasma flex items-center justify-center border border-plasma/20">
+                            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-plasma/40 to-plasma flex items-center justify-center border border-plasma/20 shadow-[0_0_15px_rgba(255,0,0,0.2)]">
                                 <User size={18} className="text-white" />
                             </div>
                         </div>

@@ -3,309 +3,495 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
-  Shield, Zap, Eye, Lock, Globe, Server, Cpu, Database, 
-  ArrowRight, Terminal, Copy, Check, Menu, X, ChevronRight, Activity
+  Zap, BookOpen, Target, FlaskConical, FileText, Brain,
+  ArrowRight, Terminal, Copy, Check, Send, Loader2,
+  Shield, Globe, Server, Database, Activity, ChevronRight,
+  Beaker, BarChart3, FileSearch, Microscope
 } from 'lucide-react';
-import SplineHero from '../components/SplineHero';
+import Navbar, { HeroSection } from '../components/NavHero';
+import { CelestialSphere } from '../components/ui/CelestialSphere';
+import AnoAIBackground from '../components/ui/AnoAIBackground';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ── NAVBAR ───────────────────────────────────────────────────────────
-function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+// ── HOW IT WORKS ─────────────────────────────────────────────────────
+function HowItWorks() {
+  const steps = [
+    {
+      num: '01',
+      title: 'Type Your Query',
+      desc: 'Enter a gene, disease, or compound in natural language. NexusRx understands the language of molecular biology.',
+      icon: Terminal,
+      example: '"BRCA2 PARP inhibitor ovarian cancer"'
+    },
+    {
+      num: '02',
+      title: 'Agents Activate',
+      desc: '5 specialized AI agents run in parallel — mining PubMed, validating targets on Open Targets, mapping clinical trials, and more.',
+      icon: Brain,
+      example: '5 agents · parallel execution · < 90s'
+    },
+    {
+      num: '03',
+      title: 'Human-in-the-Loop',
+      desc: 'Low-confidence findings surface for researcher review. You stay in control — the AI augments, never replaces.',
+      icon: Shield,
+      example: 'Confidence gate at 60% threshold'
+    },
+    {
+      num: '04',
+      title: 'Research Brief Delivered',
+      desc: 'A structured, auditable research brief with citations, evidence strength ratings, and recommended next steps.',
+      icon: FileText,
+      example: 'PDF + Markdown + JSON outputs'
+    },
+  ];
 
   return (
-    <nav
-      style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        background: scrolled ? 'rgba(10,10,20,0.85)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.05)' : '1px solid transparent',
-        transition: 'all 0.3s ease',
-        padding: '1.25rem 2rem',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between'
-      }}
-    >
-      <div className="flex items-center gap-8">
-        <span className="font-mono text-sm font-bold tracking-tighter" style={{ color: 'var(--ghost)' }}>
-          MEDREDTEAM<span style={{ color: 'var(--plasma)' }}>-SDK</span>
-        </span>
-        <div className="hidden md:flex items-center gap-10">
-          <NavLink to="/" className="font-mono text-[11px] uppercase tracking-widest hover:text-white transition-colors" style={{ color: 'rgba(255,255,255,0.5)' }}>Home</NavLink>
-          <NavLink to="/docs" className="font-mono text-[11px] uppercase tracking-widest hover:text-white transition-colors" style={{ color: 'rgba(255,255,255,0.5)' }}>Documentation</NavLink>
-          <NavLink to="/leaderboard" className="font-mono text-[11px] uppercase tracking-widest hover:text-white transition-colors" style={{ color: 'rgba(255,255,255,0.5)' }}>Leaderboard</NavLink>
-          <NavLink to="/corpus" className="font-mono text-[11px] uppercase tracking-widest hover:text-white transition-colors" style={{ color: 'rgba(255,255,255,0.5)' }}>Corpus</NavLink>
-        </div>
+    <section id="features" className="relative py-24 px-6 md:px-12 max-w-[1200px] mx-auto overflow-hidden">
+      {/* Celestial Sphere Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
+        <CelestialSphere 
+          hue={200} 
+          speed={0.2} 
+          zoom={1.5} 
+          particleSize={3}
+          className="w-full h-full"
+        />
       </div>
 
-      <div className="hidden md:flex items-center gap-6">
-        <div className="flex items-center gap-2">
-            <span className="status-dot" style={{ width: 6, height: 6 }} />
-            <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: 'var(--plasma)' }}>System: Ready</span>
-        </div>
-        <NavLink 
-          to="/dashboard"
-          className="px-5 py-2 rounded-full bg-white text-void font-mono text-[10px] uppercase font-bold hover:bg-plasma hover:text-white transition-all"
-        >
-          Console
-        </NavLink>
+      {/* Aurora Glow */}
+      <div className="aurora-bg">
+        <div className="aurora-1 opacity-10" />
       </div>
 
-      <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
-        {menuOpen ? <X size={20} /> : <Menu size={20} />}
-      </button>
+      <div className="relative z-10 flex flex-col items-center mb-16 text-center">
+        <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-plasma mb-4">How It Works</span>
+        <h2 className="font-display text-3xl md:text-5xl font-semibold text-white mb-4">
+          From query to research brief in minutes
+        </h2>
+        <p className="text-sm text-white/40 max-w-xl">
+          NexusRx orchestrates a fleet of AI agents using LangGraph, coordinating across 5 MCP data sources simultaneously.
+        </p>
+      </div>
 
-      {menuOpen && (
-        <div className="absolute top-full left-0 right-0 py-6 px-8 flex flex-col gap-4 md:hidden" style={{ background: 'var(--void)', borderBottom: '1px solid var(--border)' }}>
-          <a href="#" className="font-mono text-xs uppercase tracking-widest" onClick={() => setMenuOpen(false)}>Home</a>
-          <a href="#" className="font-mono text-xs uppercase tracking-widest" onClick={() => setMenuOpen(false)}>Documentation</a>
-        </div>
-      )}
-    </nav>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {steps.map((step, i) => {
+          const Icon = step.icon;
+          return (
+            <div key={i} className="shiny-border group hover:scale-[1.02] transition-transform">
+              <div className="shiny-border-content glass-card p-8 flex flex-col gap-5 h-full">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: 'rgba(37,99,235,0.1)', border: '1px solid rgba(37,99,235,0.2)' }}>
+                      <Icon size={24} className="text-plasma group-hover:scale-110 transition-transform" />
+                    </div>
+                    <span className="font-mono text-xs font-bold text-plasma/60">{step.num}</span>
+                  </div>
+                </div>
+                <h3 className="font-display text-xl font-semibold text-white">{step.title}</h3>
+                <p className="text-sm text-white/45 leading-relaxed">{step.desc}</p>
+                <div className="mt-auto pt-6 border-t border-white/5">
+                  <span className="font-mono text-[10px] text-white/25 uppercase tracking-wider">{step.example}</span>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 
-// ── HERO SECTION ─────────────────────────────────────────────────────
-function Hero() {
+// ── LIVE DEMO SECTION ────────────────────────────────────────────────
+function DemoSection() {
+  const [query, setQuery] = useState('');
+  const [isRunning, setIsRunning] = useState(false);
+  const [currentAgent, setCurrentAgent] = useState(-1);
+  const [agentOutputs, setAgentOutputs] = useState({});
+  const [showReport, setShowReport] = useState(false);
+  const [demoComplete, setDemoComplete] = useState(false);
+
+  const exampleQueries = [
+    'BRCA2 PARP inhibitor ovarian cancer',
+    'KRAS G12C lung adenocarcinoma',
+    'PD-L1 checkpoint immunotherapy melanoma',
+    'metformin NAFLD liver fibrosis',
+  ];
+
+  const agentDefs = [
+    { id: 0, name: 'Orchestrator', icon: Brain, color: '#2563EB', parseTime: 800 },
+    { id: 1, name: 'Literature Intelligence', icon: BookOpen, color: '#3B82F6', parseTime: 1500 },
+    { id: 2, name: 'Target Validation', icon: Target, color: '#10B981', parseTime: 1200 },
+    { id: 3, name: 'Clinical Trial Intel', icon: FlaskConical, color: '#6366F1', parseTime: 1400 },
+    { id: 4, name: 'Synthesis & Report', icon: FileText, color: '#8B5CF6', parseTime: 1000 },
+  ];
+
+  const simulatedOutputs = {
+    0: { status: 'complete', data: '{"target_entity": "BRCA2", "disease_context": "ovarian cancer", "compound_class": "PARP inhibitor", "agent_sequence": [1,2,3,4]}' },
+    1: { status: 'complete', data: 'Found 847 papers on PubMed. Top 20 ranked by relevance + recency. Contradiction detected between 2 meta-analyses on combination therapy efficacy (p < 0.05).' },
+    2: { status: 'complete', data: 'Druggability Score: 0.89 | Association Score: 0.94 | Safety Flags: Low hepatotoxicity risk, CYP450 interaction noted. Tissue specificity: high in ovarian epithelium.' },
+    3: { status: 'complete', data: '12 active Phase III trials. 3 completed Phase II (NCT04...). White space identified: post-platinum-resistant subgroup (0 active trials, 4 completed Phase II).' },
+    4: { status: 'complete', data: 'Evidence Strength: STRONG (0.91). Recommended: Proceed with combination PARP + anti-PD-L1 trial in platinum-resistant cohort. Full brief generated with 42 citations.' },
+  };
+
+  const runDemo = async (selectedQuery) => {
+    const q = selectedQuery || query;
+    if (!q.trim()) return;
+    setQuery(q);
+    setIsRunning(true);
+    setCurrentAgent(-1);
+    setAgentOutputs({});
+    setShowReport(false);
+    setDemoComplete(false);
+
+    for (let i = 0; i < agentDefs.length; i++) {
+      setCurrentAgent(i);
+      await new Promise(r => setTimeout(r, agentDefs[i].parseTime));
+      setAgentOutputs(prev => ({ ...prev, [i]: simulatedOutputs[i] }));
+    }
+
+    await new Promise(r => setTimeout(r, 500));
+    setShowReport(true);
+    setIsRunning(false);
+    setDemoComplete(true);
+  };
+
+  return (
+    <section id="demo" className="relative py-24 px-6 md:px-12 overflow-hidden" style={{ background: '#0D1B2A' }}>
+      {/* Aurora Glow */}
+      <div className="aurora-bg">
+        <div className="aurora-1 opacity-20" />
+      </div>
+
+      <div className="max-w-[1200px] mx-auto">
+        {/* Header */}
+        <div className="flex flex-col items-center mb-12 text-center">
+          <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-bio-green mb-4">Live Demo</span>
+          <h2 className="font-display text-3xl md:text-5xl font-semibold text-white mb-4">
+            See NexusRx in action
+          </h2>
+          <p className="text-sm text-white/40 max-w-xl">
+            Type a drug discovery query or pick an example below. Watch the 5-agent pipeline process it in real-time.
+          </p>
+        </div>
+
+        <div className="max-w-4xl mx-auto mb-12">
+          <div className="shiny-border">
+            <div className="shiny-border-content glass-card overflow-hidden">
+              {/* Input header */}
+              <div className="flex items-center justify-between px-6 py-4 border-b border-white/5" style={{ background: 'rgba(255,255,255,0.02)' }}>
+                <span className="font-mono text-[10px] uppercase tracking-widest text-white/30">Research Query</span>
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-400/60" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/60" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-green-400/60" />
+                </div>
+              </div>
+              {/* Input area */}
+              <div className="p-6 flex items-center gap-5">
+                <span className="font-mono text-plasma text-lg font-bold">»</span>
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && !isRunning && runDemo()}
+                  placeholder="Enter a gene, disease, or compound... e.g. BRCA2, KRAS G12C"
+                  className="flex-1 bg-transparent text-white text-base font-mono outline-none placeholder:text-white/20"
+                  disabled={isRunning}
+                />
+                <button
+                  onClick={() => runDemo()}
+                  disabled={isRunning || !query.trim()}
+                  className="btn-shimmer flex items-center gap-2.5 px-6 py-3 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  {isRunning ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
+                  {isRunning ? 'Processing...' : 'Analyze'}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Example chips */}
+          <div className="flex flex-wrap gap-2 mt-4 justify-center">
+            {exampleQueries.map(eq => (
+              <button
+                key={eq}
+                onClick={() => runDemo(eq)}
+                disabled={isRunning}
+                className="px-3 py-1.5 rounded-full text-[11px] font-mono transition-all hover:scale-105 disabled:opacity-30"
+                style={{ background: 'rgba(37,99,235,0.1)', border: '1px solid rgba(37,99,235,0.2)', color: 'rgba(248,250,252,0.6)' }}
+              >
+                {eq}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Agent Pipeline Monitor */}
+        {(isRunning || demoComplete) && (
+          <div className="max-w-4xl mx-auto">
+            <div className="shiny-border">
+              <div className="shiny-border-content glass-card p-8">
+                <div className="flex items-center justify-between mb-6">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-white/30">Agent Pipeline Monitor</span>
+                  <div className="flex items-center gap-2">
+                    <Activity size={14} className={isRunning ? "text-plasma animate-pulse" : "text-bio-green"} />
+                    <span className="font-mono text-[10px] uppercase tracking-wider" style={{ color: isRunning ? '#2563EB' : '#10B981' }}>
+                      {isRunning ? 'Processing...' : 'Complete'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Agent steps */}
+                <div className="flex flex-col gap-4">
+                  {agentDefs.map((agent, i) => {
+                    const Icon = agent.icon;
+                    const isActive = currentAgent === i;
+                    const isDone = agentOutputs[i] !== undefined;
+
+                    return (
+                      <div key={agent.id} className="flex flex-col gap-2">
+                        <div className="flex items-center gap-3">
+                          {/* Status indicator */}
+                          <div className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0" style={{
+                            background: isDone ? 'rgba(16,185,129,0.1)' : isActive ? 'rgba(37,99,235,0.1)' : 'rgba(255,255,255,0.03)',
+                            border: `1px solid ${isDone ? 'rgba(16,185,129,0.2)' : isActive ? 'rgba(37,99,235,0.3)' : 'rgba(255,255,255,0.05)'}`,
+                          }}>
+                            {isDone ? (
+                              <Check size={14} className="text-bio-green" />
+                            ) : isActive ? (
+                              <Loader2 size={14} className="text-plasma animate-spin" />
+                            ) : (
+                              <span className="w-1.5 h-1.5 rounded-full bg-white/10" />
+                            )}
+                          </div>
+
+                          {/* Agent info */}
+                          <div className="flex items-center gap-3 flex-1 min-w-0">
+                            <Icon size={16} style={{ color: isDone ? '#10B981' : isActive ? agent.color : 'rgba(255,255,255,0.2)' }} />
+                            <span className={`text-sm font-medium ${isDone ? 'text-white/80' : isActive ? 'text-white font-bold' : 'text-white/25'}`}>
+                              Agent {i}: {agent.name}
+                            </span>
+                          </div>
+
+                          {/* Status badge */}
+                          <span className="font-mono text-[10px] uppercase tracking-widest px-2.5 py-1 rounded" style={{
+                            background: isDone ? 'rgba(16,185,129,0.1)' : isActive ? 'rgba(37,99,235,0.15)' : 'transparent',
+                            color: isDone ? '#10B981' : isActive ? '#2563EB' : 'rgba(255,255,255,0.15)',
+                            border: `1px solid ${isDone ? 'rgba(16,185,129,0.2)' : isActive ? 'rgba(37,99,235,0.3)' : 'rgba(255,255,255,0.05)'}`,
+                          }}>
+                            {isDone ? 'Complete' : isActive ? 'Running' : 'Queued'}
+                          </span>
+                        </div>
+                        {/* Agent output */}
+                        {isDone && agentOutputs[i] && (
+                          <div className="ml-11 p-4 rounded-xl font-mono text-xs leading-relaxed overflow-x-auto" style={{ background: 'rgba(0,0,0,0.3)', color: 'rgba(248,250,252,0.5)', border: '1px solid rgba(255,255,255,0.03)' }}>
+                            {agentOutputs[i].data}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Confidence bar */}
+                {showReport && (
+                  <div className="mt-8 pt-8 border-t border-white/5">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-sm font-medium text-white/60 font-display uppercase tracking-widest">Evidence Strength</span>
+                      <span className="font-mono text-sm font-bold text-bio-green">STRONG — 91%</span>
+                    </div>
+                    <div className="h-2.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.05)' }}>
+                      <div
+                        className="h-full rounded-full transition-all duration-1000"
+                        style={{ width: '91%', background: 'linear-gradient(90deg, #2563EB, #10B981)' }}
+                      />
+                    </div>
+                    <div className="mt-6 p-6 rounded-2xl" style={{ background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.15)' }}>
+                      <div className="flex items-center gap-3 mb-3">
+                        <FileText size={18} className="text-bio-green" />
+                        <span className="text-sm font-bold text-bio-green font-display uppercase tracking-wider">Research Brief Generated</span>
+                      </div>
+                      <p className="text-sm text-white/50 leading-relaxed font-sans mt-2">
+                        Structured research brief with executive summary, evidence strength rating (Strong), trial white space analysis
+                        (platinum-resistant cohort identified), 42 citations from 847 papers, and recommended next steps for combination PARP + anti-PD-L1 trial design.
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+// ── AGENT CARDS (Detailed) ───────────────────────────────────────────
+function AgentDetails() {
+  const agentDetails = [
+    {
+      name: 'Literature Intelligence',
+      mcp: 'PubMed MCP',
+      icon: BookOpen,
+      color: '#3B82F6',
+      points: ['3 parallel searches per query', 'Top 20 papers ranked by relevance', 'Contradiction detection across findings'],
+    },
+    {
+      name: 'Target Validation',
+      mcp: 'Open Targets MCP',
+      icon: Target,
+      color: '#10B981',
+      points: ['Druggability scorecard (0–1.0)', 'Safety flag summary', 'Tissue specificity heat map'],
+    },
+    {
+      name: 'Clinical Trial Intel',
+      mcp: 'ClinicalTrials.gov MCP',
+      icon: FlaskConical,
+      color: '#6366F1',
+      points: ['Phase distribution mapping', 'Enrollment status tracking', 'White space opportunity flagging'],
+    },
+    {
+      name: 'Molecular Context',
+      mcp: 'Scholar Gateway + Owkin MCPs',
+      icon: Microscope,
+      color: '#F59E0B',
+      points: ['Compound precedent analysis', 'ADMET profile summaries', 'Structural novelty scoring'],
+    },
+  ];
+
+  return (
+    <section id="agents" className="relative py-24 px-6 md:px-12 max-w-[1200px] mx-auto overflow-hidden">
+      {/* AnoAI Shader Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
+        <AnoAIBackground />
+      </div>
+
+      {/* Aurora Glow */}
+      <div className="aurora-bg">
+        <div className="aurora-2 opacity-10" />
+      </div>
+
+      <div className="relative z-10 flex flex-col items-center mb-16 text-center">
+        <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-plasma mb-4">Specialized Agents</span>
+        <h2 className="font-display text-3xl md:text-5xl font-semibold text-white mb-4">
+          Five agents. One intelligence pipeline.
+        </h2>
+        <p className="text-sm text-white/40 max-w-xl">
+          Each agent is purpose-built for a specific phase of drug discovery research, powered by live MCP data sources.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {agentDetails.map((agent, i) => {
+          const Icon = agent.icon;
+          return (
+            <div key={i} className="shiny-border group hover:scale-[1.02] transition-transform">
+              <div className="shiny-border-content glass-card p-8 flex flex-col gap-5 h-full">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform group-hover:rotate-6" style={{ background: `${agent.color}15`, border: `1px solid ${agent.color}30` }}>
+                    <Icon size={24} style={{ color: agent.color }} />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-semibold text-white">{agent.name}</h3>
+                    <span className="font-mono text-[9px] uppercase tracking-wider text-white/30">{agent.mcp}</span>
+                  </div>
+                </div>
+                <ul className="flex flex-col gap-3 mt-2">
+                  {agent.points.map((point, j) => (
+                    <li key={j} className="flex items-start gap-3 text-sm text-white/50">
+                      <ChevronRight size={16} className="text-plasma/50 mt-0.5 flex-shrink-0" />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+// ── OPEN SOURCE CTA ──────────────────────────────────────────────────
+function OpenSourceCTA() {
   const [copied, setCopied] = useState(false);
   const handleCopy = () => {
-    navigator.clipboard.writeText('pip install medrteam');
+    navigator.clipboard.writeText('pip install nexusrx-core');
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <section className="relative min-h-[100dvh] flex flex-col items-center justify-center pt-24 pb-16 overflow-hidden">
-      <SplineHero />
-      
-      {/* Overlay for contrast */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-void/40 to-void z-[1]" />
+    <section className="relative py-32 px-6 md:px-12 text-center overflow-hidden" style={{ background: 'rgba(255,255,255,0.01)' }}>
+      {/* Aurora Glow */}
+      <div className="aurora-bg">
+        <div className="aurora-1 opacity-10" />
+        <div className="aurora-2 opacity-10" />
+      </div>
 
-      <div className="relative z-10 w-full max-w-[1200px] px-6 md:px-12 flex flex-col items-center text-center">
-        <h1 className="font-sans font-extrabold text-4xl md:text-7xl lg:text-8xl tracking-tight mb-6 max-w-5xl leading-[0.9] text-white">
-          AUTOMATED RED-TEAMING FOR MEDICAL LLMS
-        </h1>
-        <p className="font-mono text-sm md:text-base tracking-widest uppercase mb-12 max-w-3xl text-white/50 leading-relaxed">
-          EXPOSE HALLUCINATIONS, JAILBREAKS, AND DATA LEAKAGE BEFORE DEPLOYMENT. NATIVE LANGCHAIN & LLAMAINDEX INTEGRATION.
+      <div className="max-w-4xl mx-auto flex flex-col items-center gap-10">
+        <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-bio-green">Open Source</span>
+        <h2 className="font-display text-4xl md:text-6xl font-semibold text-white leading-tight">
+          Every drug discovery team deserves
+          <br />
+          <span className="text-shimmer">
+            a 24/7 AI research analyst.
+          </span>
+        </h2>
+        <p className="text-base text-white/40 max-w-2xl leading-relaxed">
+          NexusRx is MIT-licensed, composable, and model-agnostic. Run it in Docker, call it from Jupyter, or import individual agents into your own LangGraph pipeline.
         </p>
 
-        <div className="flex flex-col items-center gap-8 w-full max-w-lg">
-            {/* Status Label */}
-            <div className="px-4 py-1.5 rounded-full border border-plasma/30 bg-plasma/5 flex items-center gap-3">
-                <span className="status-dot" />
-                <span className="font-mono text-[11px] uppercase tracking-widest text-plasma">SYSTEM_STATUS: READY</span>
+        {/* Terminal block */}
+        <div className="w-full max-w-md group cursor-pointer animate-float">
+          <div className="shiny-border" onClick={handleCopy}>
+            <div className="shiny-border-content glass-card overflow-hidden transition-all hover:bg-white/[0.05]">
+              <div className="flex items-center justify-between px-6 py-3 border-b border-white/5" style={{ background: 'rgba(255,255,255,0.02)' }}>
+                <span className="font-mono text-[10px] uppercase tracking-widest text-white/30">Quick Install</span>
+                {copied ? <Check size={16} className="text-bio-green" /> : <Copy size={16} className="text-white/20 group-hover:text-plasma transition-colors" />}
+              </div>
+              <div className="p-6 font-mono text-base flex items-center justify-center gap-4">
+                <span className="text-plasma font-bold">»</span>
+                <span className="text-white font-medium">pip install nexusrx-core</span>
+              </div>
             </div>
-
-            {/* Terminal Block */}
-            <div 
-                onClick={handleCopy}
-                className="w-full card-surface group cursor-pointer overflow-hidden transition-all hover:border-plasma/40"
-                style={{ background: 'rgba(0,0,0,0.4)', borderRadius: '1rem' }}
-            >
-                <div className="flex items-center justify-between px-5 py-3 border-b border-white/5 bg-white/5">
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-white/40">Terminal_Command_Input</span>
-                    {copied ? <Check size={14} className="text-green-400" /> : <Copy size={14} className="text-white/20 group-hover:text-plasma transition-colors" />}
-                </div>
-                <div className="p-6 font-mono text-sm flex items-center gap-3">
-                    <span className="text-plasma">$</span>
-                    <span className="text-white font-medium">pip install medrteam</span>
-                    <span className="ml-auto font-mono text-[10px] text-white/20 uppercase">v1.0.4-stable // system ready</span>
-                </div>
-            </div>
-
-            <NavLink 
-                to="/docs" 
-                className="btn-magnetic px-10 py-4 font-mono text-[11px] uppercase tracking-widest rounded-full"
-                style={{ background: 'var(--ghost)', color: 'var(--void)' }}
-            >
-                <span className="btn-slide" style={{ background: 'rgba(0,0,0,0.1)' }} />
-                Read Docs
-            </NavLink>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ── CORE CAPABILITIES ────────────────────────────────────────────────
-function CoreCapabilities() {
-  const caps = [
-    {
-      title: 'ADVERSARIAL_INJECTION',
-      desc: 'Automated testing for jailbreaks and custom surgical prompts designed to bypass safety guardrails in medical-tuned LLMs.'
-    },
-    {
-      title: 'DOSAGE_HALLUCINATION',
-      desc: 'Deep scanning for fatal dosage hallucinations and incorrect drug-to-drug interactions through structured attack vectors.'
-    },
-    {
-      title: 'PII_LEAKAGE_DETECTION',
-      desc: 'Verification of HIPAA compliance through automated patient-identifiable information leakage stress tests.'
-    }
-  ];
-
-  return (
-    <section className="py-24 px-6 md:px-12 max-w-[1200px] mx-auto">
-      <div className="flex flex-col items-center mb-16 text-center">
-        <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-plasma mb-4">Core_System_Capabilities</p>
-        <div className="h-px w-24 bg-plasma/30 mb-8" />
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {caps.map((cap, i) => (
-          <div key={i} className="flex flex-col gap-6 p-8 card-surface h-full">
-            <h3 className="font-mono text-sm font-bold tracking-widest text-white">{cap.title}</h3>
-            <p className="text-sm text-white/40 leading-relaxed font-sans">{cap.desc}</p>
           </div>
-        ))}
-      </div>
-
-      <div className="mt-16 flex flex-col items-center gap-4">
-        <div className="font-mono text-[10px] uppercase tracking-widest text-white/30">[ STATUS: OPERATIONAL_CI_CD_READY ]</div>
-        <NavLink to="/docs/api" className="font-mono text-[10px] uppercase tracking-[0.2em] text-plasma underline underline-offset-8 decoration-plasma/30 hover:decoration-plasma transition-all">TERMINAL_DOCS</NavLink>
-      </div>
-    </section>
-  );
-}
-
-// ── ECOSYSTEM CONNECTORS ─────────────────────────────────────────────
-function EcosystemConnectors() {
-  const connectors = [
-      { name: 'LANGCHAIN', desc: 'ADVERSARIAL PROMPT CHAINING AND AGENTIC OVERRIDES.' },
-      { name: 'HUGGINGFACE', desc: 'DIRECT INFERENCE ATTACKS ON OPEN-WEIGHT CLINICAL MODELS.' },
-      { name: 'LLAMAINDEX', desc: 'EXTRACT POTENTIAL PII FROM VECTOR DATABASE RETRIEVALS.' },
-      { name: 'GRADIENT AI', desc: 'SCALABLE GPU-BACKED ADVERSARIAL TESTING PIPELINES.' }
-  ];
-
-  return (
-    <section className="py-24 px-6 md:px-12 bg-white/[0.02]">
-      <div className="max-w-[1200px] mx-auto">
-        <div className="mb-20">
-            <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-plasma mb-4">[ NATIVE_INTEGRATIONS ]</p>
-            <h2 className="font-sans font-extrabold text-4xl md:text-5xl tracking-tight text-white mb-4">ECOSYSTEM CONNECTORS</h2>
-            <p className="font-mono text-[10px] tracking-widest text-white/20 uppercase tracking-[0.2em]">TARGET: SECURE_CI_CD_DEPLOYMENT</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {connectors.map((c, i) => (
-                <div key={i} className="p-8 border border-white/5 hover:border-plasma/20 transition-colors flex flex-col gap-6">
-                    <h4 className="font-mono text-xs font-bold text-plasma tracking-widest">{c.name}</h4>
-                    <p className="font-mono text-[10px] leading-relaxed text-white/40 tracking-wider uppercase">{c.desc}</p>
-                </div>
-            ))}
+        <div className="flex items-center gap-6 mt-4">
+          <div className="h-px w-12 bg-white/10" />
+          <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-plasma">From biomarker to breakthrough — autonomously.</span>
+          <div className="h-px w-12 bg-white/10" />
         </div>
       </div>
-    </section>
-  );
-}
-
-// ── INFRASTRUCTURAL CORE ─────────────────────────────────────────────
-function InfrastructuralCore() {
-  return (
-    <section className="py-32 px-6 md:px-12 max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-5 gap-16">
-        <div className="lg:col-span-3">
-            <h2 className="font-sans font-extrabold text-4xl mb-8 text-white">Infrastructural Core</h2>
-            <p className="text-white/50 leading-loose text-base max-w-xl">
-                Deployed on high-performance GPU-backed nodes. Our infrastructure leverages DigitalOcean Gradient AI for sub-second inference latency, wrapped in a production-grade Next.js command dashboard. Automated pipeline integrity is maintained through strict CI/CD integration.
-            </p>
-        </div>
-        <div className="lg:col-span-2 flex flex-col gap-6 justify-center">
-            <div className="p-8 card-surface flex flex-col gap-3">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">System Status</span>
-                <div className="flex items-center justify-between">
-                    <span className="font-mono text-lg font-bold text-white tracking-widest">ONLINE // SECTOR 07</span>
-                    <Activity size={18} className="text-plasma animate-pulse" />
-                </div>
-            </div>
-            <div className="p-8 card-surface flex flex-col gap-3">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">Inference Latency</span>
-                <span className="font-mono text-lg font-bold text-white tracking-widest">142MS AVG</span>
-            </div>
-        </div>
-    </section>
-  );
-}
-
-// ── SECURE YOUR MODELS ───────────────────────────────────────────────
-function SecureYourModels() {
-  return (
-    <section className="py-32 px-6 md:px-12 text-center bg-white/[0.03]">
-        <div className="max-w-4xl mx-auto flex flex-col items-center">
-            <h2 className="font-sans font-black text-4xl md:text-5xl lg:text-6xl tracking-tighter mb-10 text-white leading-[1.1]">
-                AUTOMATE ADVERSARIAL RED-TEAMING FOR MEDICAL LLMS
-            </h2>
-            <p className="text-white/40 font-mono text-sm tracking-widest uppercase leading-relaxed max-w-2xl mb-12">
-                DEPLOY THE SDK INTO YOUR CI/CD PIPELINE TO DETECT HALLUCINATIONS, JAILBREAKS, AND DATA LEAKAGE BEFORE PRODUCTION. SECURE SYSTEM ARCHITECTURE WITH ONE PIP INSTALL.
-            </p>
-            <div className="flex items-center gap-6">
-                 <div className="h-px w-12 bg-white/10" />
-                 <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-plasma">SYSTEM STATUS: ACTIVE // OPEN SOURCE</span>
-                 <div className="h-px w-12 bg-white/10" />
-            </div>
-        </div>
-    </section>
-  );
-}
-
-// ── THREAT VECTORS ───────────────────────────────────────────────────
-function ThreatVectors() {
-  const vectors = [
-    { num: '01', title: 'DOSAGE_HALLUCINATION', risk: 'CRITICAL_RISK', desc: 'Automated testing for lethal dosage hallucinations in pharmacy-integrated LLM pipelines. Validates against FDA standard datasets.' },
-    { num: '02', title: 'CONSENT_BYPASS', risk: 'SECURITY_BREACH', desc: 'Heuristic-based adversarial attacks targeting safety filters. Focuses on illicit surgical procedures and restricted pharmaceutical advice.' },
-    { num: '03', title: 'DATA_EXFILTRATION', risk: 'HIPAA_VIOLATION', desc: 'Probing for protected health information leakage in weights and cached inference. Uses custom entropy-based detection logic.' },
-    { num: '04', title: 'PIPELINE_INTEGRATION', risk: 'AUTOMATED_RED_TEAM', desc: 'Native drop-in support for GitHub Actions and GitLab CI. Generates compliant reports for medical device software certification.' },
-  ];
-
-  return (
-    <section className="py-32 px-6 md:px-12 max-w-[1200px] mx-auto">
-        <div className="mb-20">
-            <p className="font-mono text-[10px] uppercase tracking-[0.4em] text-plasma mb-4">Threat_Vectors_Overview</p>
-            <h2 className="font-sans font-extrabold text-4xl text-white">ANALYSIS SUITE</h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {vectors.map((v, i) => (
-                <div key={i} className="flex flex-col gap-6 p-8 border border-white/5 hover:bg-white/[0.01] transition-all group">
-                    <div className="flex items-start justify-between">
-                        <span className="font-mono text-xl font-bold text-plasma/40 group-hover:text-plasma transition-colors">{v.num}</span>
-                        <span className="px-3 py-1 rounded bg-red-500/10 text-red-400 font-mono text-[9px] uppercase tracking-widest border border-red-500/20">{v.risk}</span>
-                    </div>
-                    <h3 className="font-mono text-lg font-bold text-white tracking-widest">{v.title}</h3>
-                    <p className="text-white/40 text-sm leading-relaxed">{v.desc}</p>
-                    <div className="mt-4 font-mono text-[9px] text-white/20 uppercase tracking-[0.2em]">MEDRED_PROTOCOL_V4.1</div>
-                </div>
-            ))}
-        </div>
-
-        <div className="mt-20 py-8 border-y border-white/5 flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-plasma animate-pulse">[SYSTEM_READY]</span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/20">V.1.0.4 stable build</span>
-        </div>
     </section>
   );
 }
 
 // ── FOOTER ───────────────────────────────────────────────────────────
 function Footer() {
-    return (
-        <footer className="py-16 px-6 md:px-12 border-t border-white/5">
-            <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-                <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/30">
-                    © 2026 MEDREDTEAM-SDK. ALL RIGHTS RESERVED.
-                </div>
-                <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-plasma">
-                    [ADVERSARIAL_PROTOCOL_V.1.0]
-                </div>
-            </div>
-        </footer>
-    );
+  return (
+    <footer className="py-12 px-6 md:px-12 border-t border-white/5">
+      <div className="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 rounded-md flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #2563EB 0%, #10B981 100%)' }}>
+            <Zap size={12} className="text-white" />
+          </div>
+          <span className="font-display text-sm text-white/60">
+            NexusRx
+          </span>
+          <span className="font-mono text-[10px] text-white/20 ml-2">v1.0 · March 2026</span>
+        </div>
+        <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/25">
+          © 2026 NexusRx. MIT License. Built for Airia AI Agents Hackathon.
+        </div>
+      </div>
+    </footer>
+  );
 }
 
 // ── LANDING PAGE ─────────────────────────────────────────────────────
@@ -313,12 +499,11 @@ export default function Landing() {
   return (
     <div className="bg-void text-ghost selection:bg-plasma selection:text-white overflow-x-hidden">
       <Navbar />
-      <Hero />
-      <CoreCapabilities />
-      <EcosystemConnectors />
-      <InfrastructuralCore />
-      <SecureYourModels />
-      <ThreatVectors />
+      <HeroSection />
+      <HowItWorks />
+      <AgentDetails />
+      <DemoSection />
+      <OpenSourceCTA />
       <Footer />
     </div>
   );
