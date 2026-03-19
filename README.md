@@ -1,81 +1,53 @@
-# MedRedTeam-SDK: Adversarial Red-Teaming for Medical LLMs
+# NexusRx: Multi-Agent Drug Discovery Intelligence Platform
 
-> **Industrial-grade automated red-teaming platform for stress-testing clinical LLM safety, resistance to hallucination, and PII leakage.**
+> **Accelerate drug discovery by compressing weeks of manual search into minutes using specialized AI agents.**
 
 ---
 
-![Project Preview](https://github.com/user-attachments/assets/placeholder-hero)
+![NexusRx Hub Thumbnail](/C:/Users/VILSEESHANDILYA/.gemini/antigravity/brain/4e452765-a8ea-4606-a955-d7d1dbfb2f8c/nexusrx_hub_thumbnail_1773916005823.png)
 
-## 🏥 MISSION_OBJECTIVE
-MedRedTeam-SDK is designed to bridge the gap between generic LLM safety and clinical-specific vulnerabilities. It provides a standardized protocol for auditing medical models against 48 distinct threat vectors, including lethal dosage triggers, surgical consent bypasses, and forensic patient data exfiltration.
+## 🧬 MISSION_OBJECTIVE
+NexusRx is an industrial-grade intelligence platform that deploys a coordinated fleet of AI agents across PubMed, Open Targets, ClinicalTrials.gov, and more. It provides researchers with structured, auditable research briefs, evidence strength ratings, and clinical trial white-space analysis in under 90 seconds.
 
-## 🕹️ CORE_SYSTEM_CAPABILITIES
-- **Adversarial Corpus**: 48 standardized threat templates mapped to clinical safety standards.
-- **Vapor Clinic Dashboard**: Real-time monitoring of model integrity and active security breaches.
-- **Protocol V4.1**: Automated 3-step audit wizard (Target -> Configuration -> Analysis).
-- **SDK Playground**: Live Python-based integration environment for developers.
-- **CI/CD Enforcement**: Block deployments based on custom Vulnerability Index Score (VIS) thresholds.
+## 🚀 CORE_CAPABILITIES
+- **Literature Intelligence**: 5 specialized agents mining literature and clinical data in parallel.
+- **Target Validation**: Instant druggability scoring and safety flag summaries via Open Targets.
+- **Trial Analysis**: Automated white-space discovery and clinical landscape mapping.
+- **Evidence Synthesis**: Generation of auditable research briefs with full citation tracking.
 
 ## 🛠️ TECH_STACK
 - **Frontend Core**: React 19 + Vite
-- **Styling Engine**: Tailwind CSS 3.4 (Custom Industrial Medical Design System)
-- **Animations**: GSAP 3 (ScrollTrigger + Character Split effects)
-- **3D Graphics**: Spline Runtime + Three.js
-- **Data Viz**: Recharts (RadarAxis, BarChart for risk profiling)
+- **Styling Engine**: Vanilla CSS + Tailwind (Custom "Void & Plasma" Design System)
+- **Advanced Visuals**: Three.js Shader Assets (Celestial Sphere, Spectral Flow, Hero Odyssey)
+- **Animations**: GSAP 3 & Framer Motion
 - **Icons**: Lucide React
-- **Routing**: React Router 7
 
-## 🏗️ ARCHITECTURE_OVERVIEW
+## 📂 PROJECT_STRUCTURE
+- `/src/components/ui/` - High-performance WebGL shader components.
+- `/src/pages/Landing.jsx` - Core landing page featuring integrated shader backgrounds.
+- `/src/pages/docs/` - Comprehensive documentation for the platform.
+- `/src/context/ScanContext.jsx` - Management of agent pipeline states and results.
 
-```mermaid
-graph TD
-    A[Landing Sector] --> B[Docs Hub]
-    A --> C[Dev Dashboard]
-    
-    subgraph "Dashboard Sector"
-    C --> D[Protocol Wizard]
-    C --> E[KPI Matrix]
-    C --> F[Report Viewer]
-    end
-    
-    subgraph "Logic Layer"
-    G[ScanContext] --> H[Mock Engine]
-    H --> I[Vulnerability Scores]
-    end
-    
-    subgraph "Integrations"
-    J[Gradient AI] --- H
-    K[CI Actions] --- H
-    end
-```
+## 🏁 GETTING_STARTED
 
-## 📂 DIRECTORY_MAPPING
-- `/src/pages/Landing.jsx` - Pixel-perfect Wix-clone reconstruction.
-- `/src/pages/docs/` - Full documentation suite (Quickstart, API, Attacks).
-- `/src/pages/dashboard/` - High-fidelity operational console.
-- `/src/context/ScanContext.jsx` - Global state management for audit results.
-- `/src/index.css` - Custom CSS tokens for `void`, `ghost`, and `plasma` aesthetics.
-
-## 🚀 GETTING_STARTED
-
-### 1. CLONE_PROTOCOL
+### 1. CLONE_REPO
 ```bash
-git clone https://github.com/yourusername/medredteam-sdk.git
-cd medredteam-sdk
+git clone https://github.com/Vilsee/nexusrx-intelligence-hub.git
+cd nexusrx-intelligence-hub
 ```
 
-### 2. INITIALIZE_DEPENDENCIES
+### 2. INITIALIZE
 ```bash
 npm install
 ```
 
-### 3. LAUNCH_TERMINAL
+### 3. RUN_LOCAL
 ```bash
 npm run dev
 ```
 
 ## 📜 LICENSE
-Distributed under the MIT Enterprise License. See `LICENSE` for more information.
+Distributed under the MIT License.
 
 ---
-**MedRedTeam-SDK** // Sector 07 Stabilized // Build v1.0.4
+**NexusRx** // Sector 07 Stabilized // Build v1.1.0

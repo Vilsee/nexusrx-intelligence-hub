@@ -31,7 +31,7 @@ export default function DocsLayout() {
           </button>
           <div className="h-4 w-px bg-white/10" />
           <span className="font-mono text-xs font-bold tracking-tighter text-white">
-            MEDREDTEAM<span className="text-plasma">-SDK</span> docs
+            NEXUS<span className="text-plasma">RX</span> docs
           </span>
         </div>
 
